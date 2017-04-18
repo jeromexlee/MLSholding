@@ -1,4 +1,7 @@
 # 玛丽苏联合控股
+[![Numpy version](https://badge.fury.io/py/numpy.svg)](https://badge.fury.io/py/numpy)
+[![Pandas version](https://badge.fury.io/py/pandas.svg)](https://badge.fury.io/py/pandas)
+[![Quandle version](https://badge.fury.io/py/quandl.svg)](https://badge.fury.io/py/quandl)
 ## 支撑/压力点计算脚本
 1. 通过前两日的数据计算第三日股票的支撑点和压力点
 2. refer： [支撑点](http://baike.baidu.com/item/支撑点)
