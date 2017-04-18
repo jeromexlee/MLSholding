@@ -11,7 +11,7 @@
 ## 动量运算
 **to be continue~**
 
-## Package
-1. Numpy
+## Package Documents
+1. [Numpy](https://docs.scipy.org/doc/numpy-dev/user/quickstart.html)
 2. [Quandl](https://github.com/quandl/quandl-python/blob/master/FOR_ANALYSTS.md#things-to-note)
-3. Pandas
+3. [Pandas](http://pandas.pydata.org/pandas-docs/stable/api.html)
