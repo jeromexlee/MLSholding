@@ -1,3 +1,5 @@
+import numpy as np
+import pandas as pd
 import quandl
 import math
 import sys
@@ -11,10 +13,14 @@ def calculatePT(H, L):
 def calculateSupports(PH,PL, H, L, C):
 	CDP = calculateCDP(H, L, C)
 	PT = calculatePT(PH, PL)
-	print("AH（最高值即强压力点）: " + str(CDP + PT))
-	print("NH（次高值即弱压力点）: " + str(2 * CDP - L))
-	print("AL（最低值即强支撑点）: " + str(CDP - PT))
-	print("HL（次低值即弱支撑点）: " + str(2 * CDP - H))
+	AH = CDP + PT
+	NH = 2 * CDP - L
+	AL = CDP - PT
+	HL = 2 * CDP - H
+	return (AH, NH, AL, HL)
+
+def upOrDip(O, C):
+	return (C - O) >= 0
 
 
 
@@ -34,5 +40,25 @@ if __name__ == '__main__':
 		ticker = sys.argv[1]
 		quandl.ApiConfig.api_key = '6PcspJiyEshZTzxZYgHZ'
 		data = quandl.get_table('WIKI/PRICES', ticker = ticker.upper())
-		calculateSupports(float(data.iloc[-2].high), float(data.iloc[-2].low), float(data.iloc[-1].high), float(data.iloc[-1].low), float(data.iloc[-1].close))
+		count = 0
+		total = len(data.index)
+		for i in range(3, len(data.index)):
+			AH, NH, AL, HL = calculateSupports(float(data.iloc[i - 3].high), float(data.iloc[i - 3].low), float(data.iloc[i - 2].high), float(data.iloc[i - 2].low), float(data.iloc[i - 2].close))
+			if (data.iloc[i - 1].close >= NH):
+				if upOrDip(data.iloc[i].open, data.iloc[i].close):
+					count+=1
+			elif (data.iloc[i - 1].close <= HL):
+				if not upOrDip(data.iloc[i].open, data.iloc[i].close):
+					count+=1
+			else:
+				count+=1
+
+		print("The correctness for this stock is", round((count / total) * 100, 2))
+
+		AH, NH, AL, HL = calculateSupports(float(data.iloc[-2].high), float(data.iloc[-2].low), float(data.iloc[-1].high), float(data.iloc[-1].low), float(data.iloc[-1].close))
+		print("The support bounders for tomorrow are:")
+		print("AH（最高值即强压力点）: " + str(round(AH,2)))
+		print("NH（次高值即弱压力点）: " + str(round(NH,2)))
+		print("AL（最低值即强支撑点）: " + str(round(AL,2)))
+		print("HL（次低值即弱支撑点）: " + str(round(HL,2)))
 
