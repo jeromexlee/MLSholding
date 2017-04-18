@@ -7,3 +7,8 @@
 
 ##动量运算
 **to be continue~**
+
+##Package
+1. Numpy
+2. [Quandl](https://github.com/quandl/quandl-python/blob/master/FOR_ANALYSTS.md#things-to-note)
+3. Pandas
