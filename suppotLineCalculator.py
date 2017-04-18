@@ -22,7 +22,12 @@ def calculateSupports(PH,PL, H, L, C):
 def upOrDip(O, C):
 	return (C - O) >= 0
 
-
+def printSupports(AH, NH, AL, HL):
+	print("The support bounders for tomorrow are:")
+	print("AH（最高值即强压力点）: " + str(round(AH,2)))
+	print("NH（次高值即弱压力点）: " + str(round(NH,2)))
+	print("AL（最低值即强支撑点）: " + str(round(AL,2)))
+	print("HL（次低值即弱支撑点）: " + str(round(HL,2)))
 
 # [main funciton]
 # @params: 前日最高点， 前日最低点，昨日最高点，昨日最低点，昨日收盘价
@@ -36,11 +41,7 @@ if __name__ == '__main__':
 	if len(sys.argv) > 2:
 		sys.argv = [float(sys.argv[i]) for i in range(1,6)]
 		AH, NH, AL, HL = calculateSupports(sys.argv[0], sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-		print("The support bounders for tomorrow are:")
-		print("AH（最高值即强压力点）: " + str(round(AH,2)))
-		print("NH（次高值即弱压力点）: " + str(round(NH,2)))
-		print("AL（最低值即强支撑点）: " + str(round(AL,2)))
-		print("HL（次低值即弱支撑点）: " + str(round(HL,2)))
+		printSupports(AH, NH, AL, HL)
 	else:
 		ticker = sys.argv[1]
 		quandl.ApiConfig.api_key = '6PcspJiyEshZTzxZYgHZ'
@@ -58,12 +59,8 @@ if __name__ == '__main__':
 			else:
 				count+=1
 
-		print("The correctness for this stock is", round((count / total) * 100, 2))
+		print("The correctness for this stock is", round((count / total) * 100, 2), "%")
 
 		AH, NH, AL, HL = calculateSupports(float(data.iloc[-2].high), float(data.iloc[-2].low), float(data.iloc[-1].high), float(data.iloc[-1].low), float(data.iloc[-1].close))
-		print("The support bounders for tomorrow are:")
-		print("AH（最高值即强压力点）: " + str(round(AH,2)))
-		print("NH（次高值即弱压力点）: " + str(round(NH,2)))
-		print("AL（最低值即强支撑点）: " + str(round(AL,2)))
-		print("HL（次低值即弱支撑点）: " + str(round(HL,2)))
+		printSupports(AH, NH, AL, HL)
 
