@@ -35,11 +35,16 @@ def upOrDip(O, C):
 if __name__ == '__main__':
 	if len(sys.argv) > 2:
 		sys.argv = [float(sys.argv[i]) for i in range(1,6)]
-		calculateSupports(sys.argv[0], sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+		AH, NH, AL, HL = calculateSupports(sys.argv[0], sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+		print("The support bounders for tomorrow are:")
+		print("AH（最高值即强压力点）: " + str(round(AH,2)))
+		print("NH（次高值即弱压力点）: " + str(round(NH,2)))
+		print("AL（最低值即强支撑点）: " + str(round(AL,2)))
+		print("HL（次低值即弱支撑点）: " + str(round(HL,2)))
 	else:
 		ticker = sys.argv[1]
 		quandl.ApiConfig.api_key = '6PcspJiyEshZTzxZYgHZ'
-		data = quandl.get_table('WIKI/PRICES', ticker = ticker.upper())
+		data = quandl.get_table('WIKI/PRICES', ticker = ticker.upper(), paginate=True)
 		count = 0
 		total = len(data.index)
 		for i in range(3, len(data.index)):
